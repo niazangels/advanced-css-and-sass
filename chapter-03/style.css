@@ -1,0 +1,219 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+*,
+*::after,
+*::before {
+    margin:0;
+    padding:0;
+
+    /* We can rely on inheritance of box-sizing from body 
+    and still retail the ability to override */
+    /* Borders and padding are no longer added to total height and width */
+    /* box-sizing: border-box;  */
+    box-sizing: inherit;
+}
+
+html {
+    /* Root font size so we can use it with rem */
+    /* font-size: 10px;  */
+    font-size: 0.625rem;
+    box-sizing: border-box;
+}
+
+body {
+    /* Inherited */
+    font-family: "Lato", sans-serif; /* Already imported in html file before calling this file */
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.7; /* Relative to default */
+    color: #777;
+    padding: 3rem;
+}
+
+.header {
+    position: relative;
+    height: 95vh; /* Viewport height */
+    background-image: 
+        linear-gradient(
+                        to right bottom, 
+                        hsla(111, 55%, 64%, 0.80), 
+                        hsla(160, 64%, 43%, 0.8)
+                        ),
+        url('./img/hero.jpg');
+    background-size: cover;
+    background-position: top;
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+}
+
+.header__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+}
+
+.header__logo {
+    height: 3.5rem; /* width is auto adjusted */
+}
+
+.header__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    text-align: center;
+}
+
+.heading-primary {
+    color:#fff;
+    text-transform: uppercase;
+
+    /* Remove shakiness in animation
+    This is to hide the back part of an element
+    eg. If it gets flipped 180 degrees, should we 
+    see the back part? */
+    backface-visibility: hidden;
+}
+
+.heading-primary--main {
+    /* Span element is by default inline. 
+    Block display occupy entire with available to them
+    And introduce line breaks before and after them. 
+    */
+    display:block; 
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+
+    animation-name: moveInFromLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+
+    /* animation-delay: 2s;
+    animation-iteration-count: 2; */
+}
+
+.heading-primary--sub {
+    display:block; 
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.7rem; 
+
+    animation: moveInFromRight 1s ease-out;
+    margin-bottom: 6rem;
+}
+
+/* .heading-primary-main:hover {
+    animation: moveInFromRight 1s ease-out;
+} */
+
+.btn:link,
+.btn:visited {
+    position: relative;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10rem;
+    transition: all .2s;
+}
+
+.btn:hover {
+    transform: translateY(-.3rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(-.1rem);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.btn::after {
+    /* There needs to be a content property, 
+    even if it is empty like below. 
+    Otherwise the element won't show up.
+    Also, the pseudo element has the same 
+    display value as the original element */
+    content:"";
+    display: inline-block;
+    
+    /* Pseudo element is treated like a child */
+    height: 100%;
+    width: 100%;
+
+    border-radius: 10rem;
+
+    position: absolute;
+    top:0;
+    left:0;
+
+    transition: all 0.4s;
+}
+
+.btn:hover::after {
+    /* z-index: 1; */
+    transform: scale(1.6, 1.4);
+    opacity: 0;
+}
+
+.btn--white {
+    background-color: #fff;
+    color: #777;
+    padding: 1.5rem 4rem;
+}
+
+.btn--white::after {
+    background-color: #fff;
+    z-index: -1;
+}
+
+.btn-animated {
+    animation: moveInFromBottom .5s ease-out .5s;
+    /* Initialize with 0% properties from the animation */
+    animation-fill-mode: backwards;
+}
+
+@keyframes moveInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+    80% {
+        transform: translateX(1rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+    80% {
+        transform: translateX(-1rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(3rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
